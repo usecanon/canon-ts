@@ -1,0 +1,34 @@
+import type { CanonClient, CanonClientConfig, EventsAPI } from "./types.js";
+import { StateClient } from "./state.js";
+/**
+ * Main Canon client implementation
+ */
+export declare class Client implements CanonClient {
+    readonly state: StateClient;
+    readonly events: EventsAPI;
+    constructor(config: CanonClientConfig);
+}
+/**
+ * Create a Canon client instance
+ *
+ * @example
+ * ```typescript
+ * const canon = createCanonClient({
+ *   endpoint: "https://api.usecanon.dev",
+ *   projectId: "my-project",
+ *   apiKey: "my-api-key"
+ * });
+ *
+ * // Get full state
+ * const state = await canon.state.get("/");
+ *
+ * // Get value at path
+ * const balance = await canon.state.get("/users/9x.../balance", { format: "value" });
+ *
+ * // Subscribe to updates
+ * const unsub = canon.state.subscribe((msg) => {
+ *   console.log("State update:", msg);
+ * });
+ * ```
+ */
+export declare function createCanonClient(config: CanonClientConfig): CanonClient;
